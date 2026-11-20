@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veterinaria MASCOTAS FELICES 🐾</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: #F8F2E9;
+            color: #5C4A3D;
+            line-height: 1.6;
+        }
+
+        /* Animaciones suaves para los animalitos */
+        @keyframes caminar {
+            0% { transform: translateX(0) rotate(0deg); }
+            25% { transform: translateX(8px) rotate(3deg); }
+            50% { transform: translateX(0) rotate(0deg); }
+            75% { transform: translateX(-8px) rotate(-3deg); }
+            100% { transform: translateX(0) rotate(0deg); }
+        }
+
+        @keyframes saltar {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes colita {
+            0%, 100% { transform: rotate(-10deg); }
+            50% { transform: rotate(10deg); }
+        }
+
+        .animal-mueve {
+            display: inline-block;
+            animation: caminar 3s ease-in-out infinite;
+        }
+
+        .animal-salta {
+            display: inline-block;
+            animation: saltar 2s ease-in-out infinite;
+        }
+
+        .animal-cola {
+            display: inline-block;
+            animation: colita 1.5s ease-in-out infinite;
+            transform-origin: bottom center;
+        }
+
+        header {
+            background-color: #D9B38C;
+            color: #4A3728;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.85;
+        }
+
+        nav {
+            background-color: #BFA48C;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav ul li a {
+            display: block;
+            color: #4A3728;
+            padding: 14px 18px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: #D9B38C;
+        }
+
+        section {
+            padding: 50px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            text-align: center;
+            color: #6F5847;
+            font-size: 1.7rem;
+            margin-bottom: 35px;
+            font-weight: 500;
+        }
+
+        .bienvenida {
+            text-align: center;
+            background-color: #EDE4D6;
+            padding: 40px;
+            border-radius: 12px;
+        }
+
+        .bienvenida h2 {
+            color: #8B6A4F;
+        }
+
+        .animales-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+        }
+
+        .animal-card {
+            background-color: #EDE4D6;
+            border-radius: 12px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .animal-card:hover {
+            background-color: #E3D7C6;
+        }
+
+        .animal-card span {
+            font-size: 3.5rem;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .animal-card h3 {
+            color: #6F5847;
+            font-size: 1.15rem;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .animal-card p {
+            font-size: 0.95rem;
+            color: #7A695C;
+        }
+
+        .form-container {
+            background-color: #EDE4D6;
+            padding: 35px;
+            border-radius: 12px;
+        }
+
+        form label {
+            display: block;
+            margin: 18px 0 6px;
+            font-weight: 500;
+            color: #6F5847;
+        }
+
+        form input, form select, form textarea {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1px solid #C8B8A6;
+            border-radius: 6px;
+            font-size: 0.98rem;
+            background-color: #FAF7F2;
+            color: #5C4A3D;
+        }
+
+        form input:focus, form select:focus, form textarea:focus {
+            outline: none;
+            border-color: #A88F76;
+        }
+
+        form button {
+            background-color: #A67C5D;
+            color: #F8F2E9;
+            border: none;
+            padding: 12px 32px;
+            font-size: 1rem;
+            border-radius: 6px;
+            margin-top: 22px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: #8B6A4F;
+        }
+
+        .historia-tabla {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #EDE4D6;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .historia-tabla th, .historia-tabla td {
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 1px solid #D9CFC0;
+        }
+
+        .historia-tabla th {
+            background-color: #C8B8A6;
+            color: #4A3728;
+            font-weight: 500;
+        }
+
+        .perros-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 24px;
+        }
+
+        .perro-card {
+            background-color: #EDE4D6;
+            border-radius: 12px;
+            padding: 28px 20px;
+            text-align: center;
+        }
+
+        .perro-card span.icono {
+            font-size: 3.2rem;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .perro-card h3 {
+            color: #6F5847;
+            font-size: 1.15rem;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .etiqueta-rescate {
+            background-color: #D4B996;
+            color: #5C4A3D;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.88rem;
+            display: inline-block;
+            margin: 10px 0;
+        }
+
+        .etiqueta-adopcion {
+            background-color: #B8C4A8;
+            color: #44523C;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.88rem;
+            display: inline-block;
+            margin: 10px 0;
+        }
+
+        .contacto-info {
+            background-color: #EDE4D6;
+            border-radius: 12px;
+            padding: 35px;
+        }
+
+        .contacto-info p {
+            margin: 14px 0;
+            font-size: 1rem;
+            color: #6F5847;
+        }
+
+        .contacto-info strong {
+            color: #5C4A3D;
+        }
+
+        footer {
+            background-color: #BFA48C;
+            color: #4A3728;
+            text-align: center;
+            padding: 25px;
+            margin-top: 20px;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.7rem;
+            }
+            nav ul {
+                flex-direction: column;
+                text-align: center;
+            }
+            section {
+                padding: 30px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabecera con mensaje de bienvenida -->
+    <header id="inicio">
+        <h1>🐾 Veterinaria AMASCOTAS FELICES 🐾</h1>
+        <p>Nuestras mascotas tambien necesitan cuidado</p>
+    </header>
+
+    <!-- Menú de navegación -->
+    <nav>
+        <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#animales">Nuestros Amigos</a></li>
+            <li><a href="#citas">Agendar Cita</a></li>
+            <li><a href="#tratamientos">Tratamientos</a></li>
+            <li><a href="#rescate">Rescate</a></li>
+            <li><a href="#adopcion">Adopción</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <!-- Sección de Bienvenida -->
+    <section>
+        <div class="bienvenida">
+            <h2>¡Bienvenidos! 🐾</h2>
+            <p>Nos da mucho gusto recibirte. En <strong>Veterinaria MASCOTAS FELICES</strong> nos dedicamos con pasión al cuidado y bienestar de tus mascotas. Aquí encontrarás todo lo que necesitas para mantener sanos y felices a tus compañeros de vida. Explora nuestra página y no dudes en contactarnos. 🐕 🐈 🐇 🐹</p>
+        </div>
+    </section>
+
+    <!-- Sección: Nuestros Animales -->
+    <section id="animales">
+        <h2>Nuestros Amigos</h2>
+        <div class="animales-grid">
+            <div class="animal-card">
+                <span class="animal-mueve">🐕</span>
+                <h3>Perros</h3>
+                <p>Consulta general, vacunas, cirugías y estética para tu fiel compañero.</p>
+            </div>
+            <div class="animal-card">
+                <span class="animal-salta">🐈</span>
+                <h3>Gatos</h3>
+                <p>Atención especializada para felinos, con espacios tranquilos y cuidados adaptados.</p>
+            </div>
+            <div class="animal-card">
+                <span class="animal-salta">🐇</span>
+                <h3>Conejos</h3>
+                <p>Cuidados específicos: alimentación, salud y orientación para su bienestar.</p>
+            </div>
+            <div class="animal-card">
+                <span class="animal-salta">🐹</span>
+                <h3>Hámsters</h3>
+                <p>Revisiones y consejos para tus pequeñitos amigos.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección: Agendar Citas -->
+    <section id="citas">
+        <h2>📅 Agendar una Cita</h2>
+        <div class="form-container">
+            <form>
+                <label for="nombre">Nombre del dueño/a:</label>
+                <input type="text" id="nombre" placeholder="Escribe tu nombre completo" required>
+
+                <label for="mascota">Nombre de tu mascota:</label>
+                <input type="text" id="mascota" placeholder="Nombre de tu peludo" required>
+
+                <label for="tipo-animal">Tipo de animal:</label>
+                <select id="tipo-animal">
+                    <option value="perro">Perro 🐕</option>
+                    <option value="gato">Gato 🐈</option>
+                    <option value="conejo">Conejo 🐇</option>
+                    <option value="hamster">Hámster 🐹</option>
+                    <option value="otro">Otro</option>
+                </select>
+
+                <label for="fecha">Fecha deseada:</label>
+                <input type="date" id="fecha" required>
+
+                <label for="hora">Hora:</label>
+                <input type="time" id="hora" required>
+
+                <label for="motivo">Motivo de la consulta:</label>
+                <textarea id="motivo" rows="4" placeholder="Ej: Vacunación, chequeo general..."></textarea>
+
+                <button type="submit">Enviar Solicitud</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Sección: Historial de Tratamientos -->
+    <section id="tratamientos">
+        <h2>📋 Historial de Tratamientos</h2>
+        <table class="historia-tabla">
+            <thead>
+                <tr>
+                    <th>Mascota</th>
+                    <th>Animal</th>
+                    <th>Tratamiento</th>
+                    <th>Fecha</th>
+                    <th>Observaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Max</td>
+                    <td>🐕 Perro</td>
+                    <td>Vacuna + Desparasitación</td>
+                    <td>15/11/2026</td>
+                    <td>Excelente salud. Próxima vacuna en 1 año.</td>
+                </tr>
+                <tr>
+                    <td>Mishi</td>
+                    <td>🐈 Gato</td>
+                    <td>Consulta y limpieza dental</td>
+                    <td>10/11/2026</td>
+                    <td>Se recomienda dieta con alimentos suaves.</td>
+                </tr>
+                <tr>
+                    <td>Pelusa</td>
+                    <td>🐇 Conejo</td>
+                    <td>Revisión y corte de uñas</td>
+                    <td>05/11/2026</td>
+                    <td>Salud óptima. Control cada 3 meses.</td>
+                </tr>
+                <tr>
+                    <td>Pepito</td>
+                    <td>🐹 Hámster</td>
+                    <td>Consulta por apetito</td>
+                    <td>02/11/2026</td>
+                    <td>Mejoró con cambio de alimentación.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Sección: Perritos de Rescate -->
+    <section id="rescate">
+        <h2>🐕 Perritos de Rescate</h2>
+        <p style="text-align:center; margin-bottom:30px; color:#7A695C;">Estos valientes están recuperándose con nosotros. ¡Conócelos!</p>
+        <div class="perros-grid">
+            <div class="perro-card">
+                <span class="icono animal-salta">🐕</span>
+                <h3>Rocky</h3>
+                <span class="etiqueta-rescate">En recuperación</span>
+                <p><strong>Edad:</strong> ~2 años</p>
+                <p style="margin-top:8px; font-size:0.95rem; color:#7A695C;">Llegó lastimado. Ya mejora mucho. Es cariñoso y juguetón.</p>
+            </div>
+            <div class="perro-card">
+                <span class="icono animal-salta">🐩</span>
+                <h3>Lola</h3>
+                <span class="etiqueta-rescate">En recuperación</span>
+                <p><strong>Edad:</strong> ~4 años</p>
+                <p style="margin-top:8px; font-size:0.95rem; color:#7A695C;">Encontrada desnutrida. Ya está sana. Le encantan los abrazos.</p>
+            </div>
+            <div class="perro-card">
+                <span class="icono animal-salta">🦮</span>
+                <h3>Capitán</h3>
+                <span class="etiqueta-rescate">En observación</span>
+                <p><strong>Edad:</strong> ~5 años</p>
+                <p style="margin-top:8px; font-size:0.95rem; color:#7A695C;">Llegó asustado, pero recupera confianza. Noble y tranquilo.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección: Perritos en Adopción -->
+    <section id="adopcion">
+        <h2>🏠 En Adopción</h2>
+        <p style="text-align:center; margin-bottom:30px; color:#7A695C;">¡Dales un hogar lleno de amor! ❤️</p>
+        <div class="perros-grid">
+            <div
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Precios y Servicios — Veterinaria MASCOTAS FELICES 🐾</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: #F8F2E9;
+            color: #5C4A3D;
+            line-height: 1.6;
+        }
+
+        /* Animaciones */
+        @keyframes caminar {
+            0% { transform: translateX(0) rotate(0deg); }
+            25% { transform: translateX(6px) rotate(2deg); }
+            50% { transform: translateX(0) rotate(0deg); }
+            75% { transform: translateX(-6px) rotate(-2deg); }
+            100% { transform: translateX(0) rotate(0deg); }
+        }
+
+        @keyframes saltar {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .animal-mueve {
+            display: inline-block;
+            animation: caminar 3.5s ease-in-out infinite;
+        }
+
+        .animal-salta {
+            display: inline-block;
+            animation: saltar 2.5s ease-in-out infinite;
+        }
+
+        header {
+            background-color: #D9B38C;
+            color: #4A3728;
+            text-align: center;
+            padding: 45px 20px;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        nav {
+            background-color: #BFA48C;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav ul li a {
+            display: block;
+            color: #4A3728;
+            padding: 14px 18px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: #D9B38C;
+        }
+
+        section {
+            padding: 50px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            text-align: center;
+            color: #6F5847;
+            font-size: 1.6rem;
+            margin-bottom: 35px;
+            font-weight: 500;
+        }
+
+        .intro {
+            text-align: center;
+            background-color: #EDE4D6;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+        }
+
+        .tabla-precios {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: #EDE4D6;
+            margin-bottom: 45px;
+        }
+
+        .tabla-precios th {
+            background-color: #C8B8A6;
+            color: #4A3728;
+            padding: 15px 20px;
+            text-align: left;
+            font-weight: 500;
+        }
+
+        .tabla-precios td {
+            padding: 14px 20px;
+            border-bottom: 1px solid #D9CFC0;
+            color: #5C4A3D;
+        }
+
+        .tabla-precios tr:last-child td {
+            border-bottom: none;
+        }
+
+        .tabla-precios tr:hover td {
+            background-color: #E3D7C6;
+        }
+
+        .precio {
+            font-weight: 500;
+            color: #8B6A4F;
+        }
+
+        .nota {
+            background-color: #E5D9C9;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            color: #6F5847;
+        }
+
+        .nota strong {
+            color: #5C4A3D;
+        }
+
+        footer {
+            background-color: #BFA48C;
+            color: #4A3728;
+            text-align: center;
+            padding: 25px;
+            margin-top: 20px;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 600px) {
+            .tabla-precios th, .tabla-precios td {
+                padding: 12px 14px;
+                font-size: 0.92rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>💰 Precios y Servicios <span class="animal-salta">🐾</span></h1>
+        <p>Transparencia y cuidado para tus peluditos</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#consultas">Consultas</a></li>
+            <li><a href="#vacunas-perros">Vacunas Perros</a></li>
+            <li><a href="#vacunas-gatos">Vacunas Gatos</a></li>
+            <li><a href="#otros">Otros Servicios</a></li>
+        </ul>
+    </nav>
+
+    <section>
+        <div class="intro">
+            <h2>Nuestros Precios</h2>
+            <p style="max-width:700px; margin:0 auto;">Todos nuestros servicios incluyen atención personalizada y explicaciones claras. Los precios son en <strong>Pesos Colombianos (COP)</strong>. Si tienes alguna duda, no dudes en consultarnos. 🐕 🐈</p>
+        </div>
+
+        <!-- Consultas -->
+        <h2 id="consultas">🩺 Consultas Médicas</h2>
+        <table class="tabla-precios">
+            <thead>
+                <tr>
+                    <th>Servicio</th>
+                    <th>Descripción</th>
+                    <th style="text-align:right;">Precio</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Consulta General <span class="animal-salta">🐕</span></td>
+                    <td>Examen completo, diagnóstico y recomendaciones para perros</td>
+                    <td class="precio" style="text-align:right;">$ 45.000</td>
+                </tr>
+                <tr>
+                    <td>Consulta General <span class="animal-salta">🐈</span></td>
+                    <td>Examen completo, diagnóstico y recomendaciones para gatos</td>
+                    <td class="precio" style="text-align:right;">$ 45.000</td>
+                </tr>
+                <tr>
+                    <td>Consulta General<span class="animal-salta"> 🐇🐹</span></td>
+                    <td>Atención para conejos, hámsters y mascotas pequeñas</td>
+                    <td class="precio" style="text-align:right;">$ 50.000</td>
+                </tr>
+                <tr>
+                    <td>Consulta de Seguimiento</td>
+                    <td>Revisión de tratamiento o evolución de tu mascota</td>
+                    <td class="precio" style="text-align:right;">$ 30.000</td>
+                </tr>
+                <tr>
+                    <td>Consulta Urgencia</td>
+                    <td>Atención inmediata fuera del horario programado</td>
+                    <td class="precio" style="text-align:right;">$ 75.000</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Vacunas Perros -->
+        <h2 id="vacunas-perros">🦠 Vacunas para Perros</h2>
+        <table class="tabla-precios">
+            <thead>
+                <tr>
+                    <th>Vacuna</th>
+                    <th>Protección</th>
+                    <th style="text-align:right;">Precio</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Vacuna Antirrábica <span class="animal-mueve">🐕</span></td>
+                    <td>Protección contra la rabia — obligatoria — válida 1 año</td>
+                    <td class="precio" style="text-align:right;">$ 35.000</td>
+                </tr>
+                <tr>
+                    <td>Puppy / Cuádruple</td>
+                    <td>Moquillo, parvovirus, hepatitis, leptospira — cachorros</td>
+                    <td class="precio" style="text-align:right;">$ 48.000</td>
+                </tr>
+                <tr>
+                    <td>Séxtuple</td>
+                    <td>Moquillo, parvovirus, hepatitis, leptospira, parainfluenza, coronavirus</td>
+                    <td class="precio" style="text-align:right;">$ 55.000</td>
+                </tr>
+                <tr>
+                    <td>Desparasitación Interna</td>
+                    <td>Eliminación de parásitos intestinales (pastilla)</td>
+                    <td class="precio" style="text-align:right;">$ 25.000</td>
+                </tr>
+                <tr>
+                    <td>Desparasitación Externa</td>
+                    <td>Contra pulgas, garrapatas y piojos (pipeta o spray)</td>
+                    <td class="precio" style="text-align:right;">$ 30.000</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Vacunas Gatos -->
+        <h2 id="vacunas-gatos">🐈 Vacunas para Gatos</h2>
+        <table class="tabla-precios">
+            <thead>
+                <tr>
+                    <th>Vacuna</th>
+                    <th>Protección</th>
+                    <th style="text-align:right;">Precio</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Vacuna Antirrábica <span class="animal-salta">🐈</span></td>
+                    <td>Protección contra la rabia — válida 1 año</td>
+                    <td class="precio" style="text-align:right;">$ 32.000</td>
+                </tr>
+                <tr>
+                    <td>Triple Felina</td>
+                    <td>Panleucopenia, rinotraqueítis, calicivirus</td>
+                    <td class="precio" style="text-align:right;">$ 50.000</td>
+                </tr>
+                <tr>
+                    <td>Cuádruple Felina</td>
+                    <td>Panleucopenia, rinotraqueítis, calicivirus + Leucemia Felv</td>
+                    <td class="precio" style="text-align:right;">$ 65.000</td>
+                </tr>
+                <tr>
+                    <td>Desparasitación Interna</td>
+                    <td>Eliminación de parásitos intestinales</td>
+                    <td class="precio" style="text-align:right;">$ 22.000</td>
+                </tr>
+                <tr>
+                    <td>Desparasitación Externa</td>
+                    <td>Contra pulgas y ácaros</td>
+                    <td class="precio" style="text-align:right;">$ 28.000</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Otros Servicios -->
+        <h2 id="otros">✨ Otros Servicios</h2>
+        <table class="tabla-precios">
+            <thead>
+                <tr>
+                    <th>Servicio</th>
+                    <th>Detalles</th>
+                    <th style="text-align:right;">Precio</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Corte de Uñas</td>
+                    <td>Para cualquier tipo de mascota</td>
+                    <td class="precio" style="text-align:right;">$ 15.000</td>
+                </tr>
+                <tr>
+                    <td>Limpieza de Oídos</td>
+                    <td>Limpieza y revisión</td>
+                    <td class="precio" style="text-align:right;">$ 20.000</td>
+                </tr>
+                <tr>
+                    <td>Baño Básico</td>
+                    <td>Baño, cepillado y secado — sin corte de pelo</td>
+                    <td class="precio" style="text-align:right;">Desde $ 35.000</td>
+                </tr>
+                <tr>
+                    <td>Cirugía General</td>
+                    <td>Esterilización, castración y procedimientos menores</td>
+                    <td class="precio" style="text-align:right;">Desde $ 150.000*</td>
+                </tr>
+                <tr>
+                    <td>Análisis de Laboratorio</td>
+                    <td>Hemograma, coproscópico, química sanguínea, etc.</td>
+                    <td class="precio" style="text-align:right;">Desde $ 40.000*</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="nota">
+            <strong>📌 Notas importantes:</strong><br>
+            • Los precios marcados con * pueden variar según el tamaño, peso y condición de tu mascota. Te daremos un presupuesto antes de cualquier procedimiento.<br>
+            • Se recomienda traer el carné de vacunación de tu mascota para llevar un control adecuado.<br>
+            • Los paquetes de vacunación completas tienen un 10% de descuento.<br>
+            • Si vienes con más de una mascota, obtienes un 5% de descuento adicional en consultas. 🐾
+        </div>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto — Veterinaria Amigos Peludos 🐾</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: #F8F2E9;
+            color: #5C4A3D;
+            line-height: 1.6;
+        }
+
+        /* Animaciones suaves */
+        @keyframes caminar {
+            0% { transform: translateX(0) rotate(0deg); }
+            25% { transform: translateX(6px) rotate(2deg); }
+            50% { transform: translateX(0) rotate(0deg); }
+            75% { transform: translateX(-6px) rotate(-2deg); }
+            100% { transform: translateX(0) rotate(0deg); }
+        }
+
+        @keyframes saltar {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .animal-mueve {
+            display: inline-block;
+            animation: caminar 3.5s ease-in-out infinite;
+        }
+
+        .animal-salta {
+            display: inline-block;
+            animation: saltar 2.5s ease-in-out infinite;
+        }
+
+        header {
+            background-color: #D9B38C;
+            color: #4A3728;
+            text-align: center;
+            padding: 45px 20px;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        nav {
+            background-color: #BFA48C;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        nav ul li a {
+            display: block;
+            color: #4A3728;
+            padding: 14px 18px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: #D9B38C;
+        }
+
+        section {
+            padding: 50px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            text-align: center;
+            color: #6F5847;
+            font-size: 1.6rem;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .info-contacto {
+            background-color: #EDE4D6;
+            padding: 35px;
+            border-radius: 12px;
+            margin-bottom: 45px;
+        }
+
+        .info-contacto p {
+            margin: 16px 0;
+            font-size: 1.05rem;
+            color: #5C4A3D;
+        }
+
+        .info-contacto strong {
+            color: #4A3728;
+            display: inline-block;
+            min-width: 140px;
+        }
+
+        .form-container {
+            background-color: #EDE4D6;
+            padding: 35px;
+            border-radius: 12px;
+        }
+
+        form label {
+            display: block;
+            margin: 18px 0 6px;
+            font-weight: 500;
+            color: #6F5847;
+        }
+
+        form input, form textarea {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1px solid #C8B8A6;
+            border-radius: 6px;
+            font-size: 0.98rem;
+            background-color: #FAF7F2;
+            color: #5C4A3D;
+        }
+
+        form input:focus, form textarea:focus {
+            outline: none;
+            border-color: #A88F76;
+        }
+
+        form button {
+            background-color: #A67C5D;
+            color: #F8F2E9;
+            border: none;
+            padding: 12px 32px;
+            font-size: 1rem;
+            border-radius: 6px;
+            margin-top: 22px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: #8B6A4F;
+        }
+
+        .nota {
+            margin-top: 20px;
+            font-size: 0.92rem;
+            color: #7A695C;
+            font-style: italic;
+        }
+
+        footer {
+            background-color: #BFA48C;
+            color: #4A3728;
+            text-align: center;
+            padding: 25px;
+            margin-top: 20px;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 600px) {
+            section {
+                padding: 30px 15px;
+            }
+            .info-contacto, .form-container {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>📬 Contáctanos <span class="animal-salta">🐾</span></h1>
+        <p>Estamos aquí para ti y para tus peluditos</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="precios.html">Ver Precios</a></li>
+            <li><a href="#informacion">Información</a></li>
+            <li><a href="#sugerencias">Buzón de Sugerencias</a></li>
+        </ul>
+    </nav>
+
+    <section id="informacion">
+        <h2>📞 Nuestros Datos de Contacto</h2>
+        <div class="info-contacto">
+            <p><span class="animal-salta">🐕</span> <strong>Teléfono principal:</strong> +57 312 567 89 40</p>
+            <p><span class="animal-salta">🐈</span> <strong>Teléfono secundario:</strong> +57 601 987 6543</p>
+            <p>✉️ <strong>Correo electrónico:</strong> contacto@mascotas_felices.com</p>
+            <p>📧 <strong>Correo para citas:</strong> citas@mascotas felices.com</p>
+            <p><p>📱 <strong>Síguenos:</strong> 
+  <a href="https://instagram.com/tu_usuario" target="_blank">
+    <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" width="24" height="24" style="vertical-align: middle; margin-left: 8px;">
+  </a> @mascotas_felices
+</p>
+</p>
+            <p>📍 <strong>Dirección:</strong> Calle 123 #45-67, Barrio Los Pinos, Bogotá - Colombia</p>
+            <p>🕐 <strong>Horario de atención:</strong> Lunes a Viernes: 8:00 a.m. – 6:00 p.m. | Sábados: 9:00 a.m. – 3:00 p.m.</p>
+        </div>
+    </section>
+
+    <section id="sugerencias">
+        <h2>💬 Buzón de Sugerencias</h2>
+        <div class="form-container">
+            <p style="text-align:center; margin-bottom:25px; color:#6F5847;">¿Tienes alguna idea, comentario o sugerencia para mejorar nuestro servicio? ¡Nos encantaría escucharte! ❤️</p>
+            
+            <form>
+                <label for="nombre">Tu nombre completo:</label>
+                <input type="text" id="nombre" placeholder="Escribe tu nombre" required>
+
+                <label for="correo">Tu correo electrónico:</label>
+                <input type="email" id="correo" placeholder="Para poder responderte" required>
+
+                <label for="asunto">Asunto:</label>
+                <input type="text" id="asunto" placeholder="¿De qué se trata tu mensaje?">
+
+                <label for="mensaje">Tu mensaje o sugerencia:</label>
+                <textarea id="mensaje" rows="6" placeholder="Escribe aquí lo que quieras compartir con nosotros... ¡Todas las opiniones son bienvenidas!" required></textarea>
+
+                <button type="submit">✉️ Enviar Mensaje</button>
+                
+                <p class="nota">* Tus datos personales se mantendrán de forma confidencial y solo se usarán para dar respuesta a tu mensaje.</p>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        🐾 Veterinaria MASCOTAS FELICES | Cuidando con amor a tus mejores amigos | Bogotá - Colombia
+    </footer>
+
+</body>
+</html>
